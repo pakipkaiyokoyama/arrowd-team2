@@ -14,6 +14,6 @@ public class MagicRoadScroll : MonoBehaviour
     void Update()
     {
         offset.x += speed * Time.deltaTime;
-        rend.material.SetTextureOffset("_BaseMap", offset);
+        rend.material.SetTextureOffset("_MainTex", offset);
     }
 }
