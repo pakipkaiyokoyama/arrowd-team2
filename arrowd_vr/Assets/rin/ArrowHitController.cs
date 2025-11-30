@@ -1,121 +1,118 @@
 using UnityEngine;
+using Valve.VR.InteractionSystem;
+using Valve.VR; // ★★★ これが足りていませんでした！追加してください ★★★
 
 public class ArrowHitController : MonoBehaviour
 {
-    [Header("ルートノードかどうか（A／B／C など）")]
-    public bool isPathNode = false;      // 路径节点：true；普通加分靶：false
+    [Header("ーー リンク設定 ーー")]
+    [Tooltip("次に有効化する風船（リレー用）")]
+    public GameObject nextBalloon;
 
-    [Header("ルート順序（0＝A、1＝B、2＝C…　ルートでない場合は −1）")]
-    public int pathIndex = -1;
+    [Tooltip("【NEW】ここを割ったら移動するシーン名（ゴール用）")]
+    public string nextSceneName;
 
-    [Header("ルートマネージャー（ルートノードのみ必要）")]
-    public PathManager pathManager;
-
-    [Header("どのキーで命中をシミュレートするか")]
-    public KeyCode triggerKey = KeyCode.T;
-
-    [Header("射抜かれた球体（自分自身）")]
+    [Header("自分自身（消す用）")]
     public GameObject ball;
 
-    [Header("爆発エフェクトのプレハブ（Prefab）")]
-    public ParticleSystem explodeFxPrefab;
+    [Header("ワープ先の地点（StandPoint）")]
+    public Transform warpPoint;
 
-    [Header("本ノードの道路長さ（111 の Scale X）。≦0 の場合は変更しない")]
+    [Header("プレイヤーをどれくらい前に立たせるか")]
+    public float playerOffset = 2.0f;
+
+
+    [Header("ーー チーム開発用設定 ーー")]
+    public bool isPathNode = false;
+    public int pathIndex = -1;
+    public PathManager pathManager;
     public float roadScaleX = 0f;
 
-
-    [Header("矢のタグ名")]
+    [Header("ーー その他設定 ーー")]
+    public KeyCode triggerKey = KeyCode.T;
+    public ParticleSystem explodeFxPrefab;
     public string arrowTag = "Arrow";
 
-    // 内部状态
-    bool triggered = false;      // 这个球是否已经被触发过
-    bool pathActive = true;      // 对于路径节点：当前是否可用（轮到它）
+    // 内部フラグ
+    bool triggered = false;
+    public bool pathActive = true;
 
-    /// <summary>
-    /// 由 PathManager 调用：使这个球在路径中“启用/禁用”
-    /// </summary>
     public void SetPathActive(bool on)
     {
         pathActive = on;
-
-        if (ball != null)
-            ball.SetActive(on);
-
+        if (ball != null) ball.SetActive(on);
         var col = GetComponent<Collider>();
-        if (col != null)
-            col.enabled = on;
-
-        // 重新启用时，可以再次触发（目前一次性用，不太会用到）
-        if (on)
-            triggered = false;
+        if (col != null) col.enabled = on;
+        if (on) triggered = false;
     }
 
     void Update()
     {
-        // 路径节点且当前没轮到自己的时候，不响应
-        if (isPathNode && !pathActive)
-            return;
-
-        // 按键 T 模拟命中
-        if (!triggered && Input.GetKeyDown(triggerKey))
-        {
-            Trigger();
-        }
+        if (isPathNode && !pathActive) return;
+        if (!triggered && Input.GetKeyDown(triggerKey)) Trigger();
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (triggered) return;
+        if (isPathNode && !pathActive) return;
 
-        // 路径节点且当前没轮到 → 忽略
-        if (isPathNode && !pathActive)
-            return;
-
-        // 只认箭矢
-        if (!other.CompareTag(arrowTag))
+        if (other.GetComponentInParent<Arrow>() == null && !other.CompareTag(arrowTag))
             return;
 
         Trigger();
     }
 
-    /// <summary>
-    /// 球爆裂 → （如果是路径节点）通知 PathManager
-    /// </summary>
     void Trigger()
     {
         if (triggered) return;
         triggered = true;
 
-        Debug.Log($"[ArrowHit] {name} Trigger(), isPathNode={isPathNode}, manager={(pathManager ? pathManager.name : "null")}, step=?");
+        Debug.Log($"[ArrowHit] {name} 命中！");
 
-        // 1. 生成一次性爆炸特效
-        if (explodeFxPrefab != null && ball != null)
+        // 1. プレイヤーワープ
+        if (Valve.VR.InteractionSystem.Player.instance != null)
         {
-            Vector3 pos = ball.transform.position;
+            Vector3 targetPos = (warpPoint != null) ? warpPoint.position : transform.position;
+            Quaternion targetRot = (warpPoint != null) ? warpPoint.rotation : transform.rotation;
+            Vector3 forwardDir = (warpPoint != null) ? warpPoint.forward : transform.forward;
+            Vector3 finalPlayerPos = targetPos + (forwardDir * playerOffset);
 
-            ParticleSystem fx = Instantiate(
-                explodeFxPrefab,
-                pos,
-                Quaternion.identity
-            );
-            fx.Play();
-
-            var main = fx.main;
-            float life = main.duration * main.startLifetimeMultiplier;
-            Destroy(fx.gameObject, life + 0.2f);
+            Valve.VR.InteractionSystem.Player.instance.transform.position = finalPlayerPos;
+            Valve.VR.InteractionSystem.Player.instance.transform.rotation = targetRot;
         }
 
-        // 2. 球体消失
-        if (ball != null)
-            ball.SetActive(false);
+        // 2. 次の風船を起こす
+        if (nextBalloon != null)
+        {
+            var nextScript = nextBalloon.GetComponent<ArrowHitController>();
+            if (nextScript != null) nextScript.SetPathActive(true);
+        }
 
-        // 3. 如果是路径节点，交给 PathManager 处理道路 + 马车
+        // 3. 爆発エフェクト
+        if (explodeFxPrefab != null && ball != null)
+        {
+            ParticleSystem fx = Instantiate(explodeFxPrefab, ball.transform.position, Quaternion.identity);
+            fx.Play();
+            var main = fx.main;
+            Destroy(fx.gameObject, main.duration + 0.2f);
+        }
+
+        // 4. 自分を消す
+        if (ball != null) ball.SetActive(false);
+
+        // 5. シーン移動処理
+        if (!string.IsNullOrEmpty(nextSceneName))
+        {
+            Debug.Log("ゴール！シーン移動します: " + nextSceneName);
+
+            // ★もしここでエラーが出るなら、下の「SceneManager」の方を使ってください
+            SteamVR_LoadLevel.Begin(nextSceneName);
+        }
+
+        // 6. マネージャーに通知
         if (isPathNode && pathManager != null)
         {
             pathManager.OnPathNodeHit(this);
         }
-
-        // 4. 如果是得分靶（以后可以在这里加 GameScore）
-        // else { 加分用逻辑写这里 }
     }
 }

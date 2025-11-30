@@ -55,7 +55,7 @@ namespace Valve.VR.InteractionSystem
         public SteamVR_Skeleton_Poser skeletonPoser;
 
         [Tooltip("Should the rendered hand lock on to and follow the object")]
-        public bool handFollowTransform= true;
+        public bool handFollowTransform = true;
 
 
         [Tooltip("Set whether or not you want this interactible to highlight when hovering over it")]
@@ -343,15 +343,24 @@ namespace Valve.VR.InteractionSystem
         {
             isDestroying = true;
 
-            if (attachedToHand != null)
+            // ★修正箇所：エラーが出ても無視するようにtry-catchで囲みました
+            try
             {
-                attachedToHand.DetachObject(this.gameObject, false);
-                attachedToHand.skeleton.BlendToSkeleton(0.1f);
+                if (attachedToHand != null)
+                {
+                    attachedToHand.DetachObject(this.gameObject, false);
+                    if (attachedToHand.skeleton != null)
+                        attachedToHand.skeleton.BlendToSkeleton(0.1f);
+                }
             }
+            catch
+            {
+                // エラーが出ても無視する
+            }
+            // ★ここまで
 
             if (highlightHolder != null)
                 Destroy(highlightHolder);
-
         }
 
 
@@ -359,10 +368,15 @@ namespace Valve.VR.InteractionSystem
         {
             isDestroying = true;
 
-            if (attachedToHand != null)
+            // 念のためここも囲んでおきます
+            try
             {
-                attachedToHand.ForceHoverUnlock();
+                if (attachedToHand != null)
+                {
+                    attachedToHand.ForceHoverUnlock();
+                }
             }
+            catch { }
 
             if (highlightHolder != null)
                 Destroy(highlightHolder);
