@@ -1037,7 +1037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b2364e9528f134980d6e8ab50dd55b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: Goal
+  nextSceneName: Result
   hitSound: {fileID: 0}
 --- !u!1 &946893917 stripped
 GameObject:
