@@ -8,12 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/map__.unity
+  - enabled: 0
+    path: Assets/map__2/map__.unity
     guid: d9d832f5fe90a764dbedd10ee23f944a
   - enabled: 1
-    path: Assets/yumi.unity
+    path: Assets/yokoyama/yumi.unity
     guid: 45bd376c883c50a41bdada3656ffe450
+  - enabled: 1
+    path: Assets/map__.unity
+    guid: f0dd90141b8983947838ada8bbddc3c2
+  - enabled: 1
+    path: Assets/Ryota/Result/Result.unity
+    guid: f2770124598318644a667bd987a654c2
   m_configObjects:
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 176ce866462dc3843893cbebd72c7074, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
