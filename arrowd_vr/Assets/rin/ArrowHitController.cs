@@ -22,7 +22,10 @@ public class ArrowHitController : MonoBehaviour
     public Transform carriage;
     public float carSpeed = 5.0f;
 
-    // ★向き補正の設定は削除しました（自動で向くため）
+    [Header("★重要：馬車の向き補正")]
+    [Tooltip("もし馬車が後ろを向くなら「180」にしてください。横なら「90」か「-90」")]
+    public float modelCorrectionY = 0f; // ← ここで向きを強制修正！
+
 
     [Header("ーー チーム開発用設定 ーー")]
     public bool isPathNode = false;
@@ -42,7 +45,6 @@ public class ArrowHitController : MonoBehaviour
     void Start()
     {
         if (pathActive) SetPathActive(true);
-
         if (carriage == null)
         {
             GameObject carObj = GameObject.FindWithTag(carTag);
@@ -112,38 +114,47 @@ public class ArrowHitController : MonoBehaviour
         Quaternion baseRot = (warpPoint != null) ? warpPoint.rotation : transform.rotation;
         Vector3 forwardDir = (warpPoint != null) ? warpPoint.forward : transform.forward;
 
+        // A. プレイヤーワープ（指定位置へ）
         if (Valve.VR.InteractionSystem.Player.instance != null)
         {
-            Vector3 playerPos = basePos + (forwardDir * playerOffset);
-            Valve.VR.InteractionSystem.Player.instance.transform.position = playerPos;
+            // StandPointの位置そのものに立つ
+            Valve.VR.InteractionSystem.Player.instance.transform.position = basePos;
 
             float playerY = baseRot.eulerAngles.y;
             Valve.VR.InteractionSystem.Player.instance.transform.rotation = Quaternion.Euler(0, playerY, 0);
         }
 
+        // B. 馬車移動（プレイヤーの後ろへ）
         if (carriage != null)
         {
-            // 回転情報は渡さず、場所だけ渡す
-            StartCoroutine(MoveCarriageSmoothly(basePos));
+            // プレイヤーの位置から後ろにずらした場所を目的地にする
+            Vector3 carTargetPos = basePos - (forwardDir * playerOffset);
+
+            StartCoroutine(MoveCarriageSmoothly(carTargetPos));
         }
     }
 
-    // ★変更：進行方向を向いて進むロジック
+    // ★変更：常に目的地（プレイヤーの方）を向くように修正
     IEnumerator MoveCarriageSmoothly(Vector3 targetPos)
     {
         while (Vector3.Distance(carriage.position, targetPos) > 0.1f)
         {
-            // 1. 移動する
+            // 1. 移動
             Vector3 nextPos = Vector3.MoveTowards(carriage.position, targetPos, carSpeed * Time.deltaTime);
 
-            // 2. 進む方向を計算する（目的地 - 現在地）
-            Vector3 direction = (targetPos - carriage.position).normalized;
-            direction.y = 0; // 上下には傾かないようにする
+            // 2. 向きの計算：「目的地」の方を向く
+            Vector3 directionToTarget = (targetPos - carriage.position).normalized;
+            directionToTarget.y = 0; // 上下には傾かない
 
-            // 3. その方向を向く
-            if (direction != Vector3.zero)
+            if (directionToTarget != Vector3.zero)
             {
-                Quaternion lookRot = Quaternion.LookRotation(direction);
+                // その方向を向く回転を作る
+                Quaternion lookRot = Quaternion.LookRotation(directionToTarget);
+
+                // ★ここで補正値を足す！（180度回すなど）
+                lookRot *= Quaternion.Euler(0, modelCorrectionY, 0);
+
+                // ゆっくり回す
                 carriage.rotation = Quaternion.RotateTowards(carriage.rotation, lookRot, carSpeed * 20 * Time.deltaTime);
             }
 
@@ -151,11 +162,14 @@ public class ArrowHitController : MonoBehaviour
             yield return null;
         }
 
-        // 到着
         carriage.position = targetPos;
 
-        // 最後に、次の目的地（StandPointの向き）に合わせて整列させるならこれを使う
-        // carriage.rotation = Quaternion.Euler(0, (warpPoint != null ? warpPoint.eulerAngles.y : transform.eulerAngles.y), 0);
+        // 到着後も、次の進行方向（プレイヤーの向き）に合わせておく
+        if (warpPoint != null)
+        {
+            Quaternion finalRot = Quaternion.Euler(0, warpPoint.eulerAngles.y + modelCorrectionY, 0);
+            carriage.rotation = finalRot;
+        }
     }
 
     IEnumerator HideAndDelayDestroy()

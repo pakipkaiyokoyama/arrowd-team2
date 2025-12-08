@@ -10290,9 +10290,10 @@ MonoBehaviour:
   nextSceneName: 
   ball: {fileID: 738069580}
   warpPoint: {fileID: 0}
-  playerOffset: -2
   carriage: {fileID: 699132320}
+  carDistance: -3
   carSpeed: 5
+  modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
   pathManager: {fileID: 0}
@@ -13006,6 +13007,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.1159973
       objectReference: {fileID: 0}
+    - target: {fileID: 5864405071382585054, guid: 90e3d6bf0029a22469871478c379b11c, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6189796581194141113, guid: 90e3d6bf0029a22469871478c379b11c, type: 3}
       propertyPath: m_Name
       value: 'carriage '
@@ -13013,7 +13018,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6189796581194141113, guid: 90e3d6bf0029a22469871478c379b11c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1385411811}
   m_SourcePrefab: {fileID: 100100000, guid: 90e3d6bf0029a22469871478c379b11c, type: 3}
 --- !u!1001 &995318602
 PrefabInstance:
@@ -13406,9 +13414,10 @@ MonoBehaviour:
   nextSceneName: 
   ball: {fileID: 1002973672}
   warpPoint: {fileID: 0}
-  playerOffset: -2
   carriage: {fileID: 699132320}
+  carDistance: -3
   carSpeed: 5
+  modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
   pathManager: {fileID: 0}
@@ -20304,6 +20313,38 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 1335834924706542919, guid: 56681137e3582ea49bc04e39cab0581c, type: 3}
   m_PrefabInstance: {fileID: 1378426649}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1385411810 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6189796581194141113, guid: 90e3d6bf0029a22469871478c379b11c, type: 3}
+  m_PrefabInstance: {fileID: 985632660}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1385411811
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385411810}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1001 &1388109210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22234,9 +22275,10 @@ MonoBehaviour:
   nextSceneName: 
   ball: {fileID: 1506689652}
   warpPoint: {fileID: 0}
-  playerOffset: 0
   carriage: {fileID: 699132320}
+  carDistance: -3
   carSpeed: 5
+  modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
   pathManager: {fileID: 0}
