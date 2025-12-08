@@ -35,7 +35,6 @@ public class ArrowHitController : MonoBehaviour
     [Header("ーー チーム開発用設定 ーー")]
     public bool isPathNode = false;
     public int pathIndex = -1;
-    public PathManager pathManager;
     public float roadScaleX = 0f;
 
     [Header("ーー その他設定 ーー")]
@@ -119,8 +118,8 @@ public class ArrowHitController : MonoBehaviour
     {
         Debug.Log("シーン移動開始（非同期モード）...");
 
-        SteamVR_Fade.Start(Color.black, 0.5f);
-        yield return new WaitForSeconds(0.5f);
+        SteamVR_Fade.Start(Color.black, 0.3f);
+        yield return new WaitForSeconds(0.3f);
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
@@ -128,13 +127,15 @@ public class ArrowHitController : MonoBehaviour
         {
             yield return null;
         }
+
+        yield return new WaitForSeconds(0.2f);
+        SteamVR_Fade.Start(Color.clear, 0.5f);
     }
 
     void WarpPlayerAndMoveCar()
     {
         Vector3 basePos = (warpPoint != null) ? warpPoint.position : transform.position;
 
-        // 馬車→ワープ先への進行方向を計算
         Vector3 moveDir = Vector3.forward;
         if (carriage != null)
         {
@@ -143,7 +144,6 @@ public class ArrowHitController : MonoBehaviour
             if (moveDir == Vector3.zero) moveDir = Vector3.forward;
         }
 
-        // プレイヤーの移動（進行方向の前へ）
         if (Valve.VR.InteractionSystem.Player.instance != null)
         {
             Vector3 playerPos = basePos + (moveDir * playerOffset);
@@ -153,7 +153,6 @@ public class ArrowHitController : MonoBehaviour
             Valve.VR.InteractionSystem.Player.instance.transform.rotation = Quaternion.Euler(0, playerY, 0);
         }
 
-        // 馬車の移動（進行方向の後ろへ、carriageOffsetで距離調整）
         if (carriage != null)
         {
             Vector3 carTargetPos = basePos - (moveDir * carriageOffset);
@@ -182,7 +181,6 @@ public class ArrowHitController : MonoBehaviour
         }
         carriage.position = targetPos;
 
-        // 到着後：進行方向を向く
         if (finalForward != Vector3.zero)
         {
             Quaternion finalRot = Quaternion.LookRotation(finalForward) * Quaternion.Euler(0, modelCorrectionY, 0);
