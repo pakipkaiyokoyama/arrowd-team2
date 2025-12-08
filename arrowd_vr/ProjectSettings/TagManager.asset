@@ -6,6 +6,8 @@ TagManager:
   tags:
   - projectile
   - Arrow
+  - FxTemporaire
+  - Car
   layers:
   - Default
   - TransparentFX

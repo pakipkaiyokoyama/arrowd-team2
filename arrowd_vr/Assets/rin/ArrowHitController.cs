@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Valve.VR.InteractionSystem;
 using Valve.VR;
+using UnityEngine.SceneManagement; // シーン移動に必要
 
 public class ArrowHitController : MonoBehaviour
 {
@@ -22,10 +23,8 @@ public class ArrowHitController : MonoBehaviour
     public Transform carriage;
     public float carSpeed = 5.0f;
 
-    [Header("★重要：馬車の向き補正")]
-    [Tooltip("もし馬車が後ろを向くなら「180」にしてください。横なら「90」か「-90」")]
-    public float modelCorrectionY = 0f; // ← ここで向きを強制修正！
-
+    [Header("馬車の向き補正")]
+    public float modelCorrectionY = 0f;
 
     [Header("ーー チーム開発用設定 ーー")]
     public bool isPathNode = false;
@@ -52,6 +51,7 @@ public class ArrowHitController : MonoBehaviour
         }
     }
 
+    // ★★★ PathManagerが探しているのはこの関数です！ ★★★
     public void SetPathActive(bool on)
     {
         pathActive = on;
@@ -60,6 +60,7 @@ public class ArrowHitController : MonoBehaviour
         if (col != null) col.enabled = on;
         if (on) triggered = false;
     }
+    // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 
     void Update()
     {
@@ -104,8 +105,24 @@ public class ArrowHitController : MonoBehaviour
 
         if (!string.IsNullOrEmpty(nextSceneName))
         {
-            SteamVR_LoadLevel.Begin(nextSceneName);
+            StartCoroutine(SafeSceneLoad(nextSceneName));
         }
+
+        // チームメイトのPathManagerへの通知
+        if (isPathNode && pathManager != null)
+        {
+            // PathManager側がエラーを吐く場合があるので、
+            // 道を作らせたくない場合はここをコメントアウトしてください
+            // pathManager.OnPathNodeHit(this); 
+        }
+    }
+
+    IEnumerator SafeSceneLoad(string sceneName)
+    {
+        Debug.Log("シーン移動開始（安全モード）...");
+        SteamVR_Fade.Start(Color.black, 0.5f);
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(sceneName);
     }
 
     void WarpPlayerAndMoveCar()
@@ -114,57 +131,41 @@ public class ArrowHitController : MonoBehaviour
         Quaternion baseRot = (warpPoint != null) ? warpPoint.rotation : transform.rotation;
         Vector3 forwardDir = (warpPoint != null) ? warpPoint.forward : transform.forward;
 
-        // A. プレイヤーワープ（指定位置へ）
         if (Valve.VR.InteractionSystem.Player.instance != null)
         {
-            // StandPointの位置そのものに立つ
-            Valve.VR.InteractionSystem.Player.instance.transform.position = basePos;
+            Vector3 playerPos = basePos + (forwardDir * playerOffset);
+            Valve.VR.InteractionSystem.Player.instance.transform.position = playerPos;
 
             float playerY = baseRot.eulerAngles.y;
             Valve.VR.InteractionSystem.Player.instance.transform.rotation = Quaternion.Euler(0, playerY, 0);
         }
 
-        // B. 馬車移動（プレイヤーの後ろへ）
         if (carriage != null)
         {
-            // プレイヤーの位置から後ろにずらした場所を目的地にする
             Vector3 carTargetPos = basePos - (forwardDir * playerOffset);
-
             StartCoroutine(MoveCarriageSmoothly(carTargetPos));
         }
     }
 
-    // ★変更：常に目的地（プレイヤーの方）を向くように修正
     IEnumerator MoveCarriageSmoothly(Vector3 targetPos)
     {
         while (Vector3.Distance(carriage.position, targetPos) > 0.1f)
         {
-            // 1. 移動
             Vector3 nextPos = Vector3.MoveTowards(carriage.position, targetPos, carSpeed * Time.deltaTime);
-
-            // 2. 向きの計算：「目的地」の方を向く
             Vector3 directionToTarget = (targetPos - carriage.position).normalized;
-            directionToTarget.y = 0; // 上下には傾かない
+            directionToTarget.y = 0;
 
             if (directionToTarget != Vector3.zero)
             {
-                // その方向を向く回転を作る
                 Quaternion lookRot = Quaternion.LookRotation(directionToTarget);
-
-                // ★ここで補正値を足す！（180度回すなど）
                 lookRot *= Quaternion.Euler(0, modelCorrectionY, 0);
-
-                // ゆっくり回す
                 carriage.rotation = Quaternion.RotateTowards(carriage.rotation, lookRot, carSpeed * 20 * Time.deltaTime);
             }
 
             carriage.position = nextPos;
             yield return null;
         }
-
         carriage.position = targetPos;
-
-        // 到着後も、次の進行方向（プレイヤーの向き）に合わせておく
         if (warpPoint != null)
         {
             Quaternion finalRot = Quaternion.Euler(0, warpPoint.eulerAngles.y + modelCorrectionY, 0);
