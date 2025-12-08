@@ -162,7 +162,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -286,7 +285,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -336,7 +334,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -568,7 +565,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -707,7 +703,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -831,7 +826,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -886,7 +880,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -1123,7 +1116,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -1371,7 +1363,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 1
   pathIndex: 0
-  pathManager: {fileID: 463693774}
   roadScaleX: 26.3
   triggerKey: 116
   explodeFxPrefab: {fileID: 198175801688348628, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
@@ -1615,7 +1606,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -1754,7 +1744,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -2290,7 +2279,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 1
   pathIndex: 2
-  pathManager: {fileID: 463693774}
   roadScaleX: 60.5
   triggerKey: 116
   explodeFxPrefab: {fileID: 198175801688348628, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
@@ -2441,7 +2429,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -2766,7 +2753,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -2905,7 +2891,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -3475,7 +3460,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -3663,6 +3647,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   currentHP: 0
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  showDebugLog: 1
 --- !u!1 &758864369
 GameObject:
   m_ObjectHideFlags: 0
@@ -3706,7 +3697,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -3969,7 +3959,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -4150,7 +4139,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -4382,7 +4370,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -4614,7 +4601,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -4753,7 +4739,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -4849,6 +4834,92 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -38.012, z: 0}
+--- !u!1001 &1227547598
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -6689036041284674117, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+      propertyPath: m_Name
+      value: dragon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774220344278030320, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774220344278030320, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 237.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774220344278030320, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 712.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774220344278030320, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774220344278030320, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774220344278030320, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774220344278030320, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774220344278030320, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774220344278030320, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774220344278030320, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -6689036041284674117, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1227547600}
+  m_SourcePrefab: {fileID: -5645937942226959685, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+--- !u!1 &1227547599 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6689036041284674117, guid: 00a1a2585631e1c47afd3e94a4897a0c, type: 3}
+  m_PrefabInstance: {fileID: 1227547598}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1227547600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227547599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea8d4b6197aa0245b7b7a037932b2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 3
+  currentHP: 0
+  attackDamage: 1
+  moveSpeed: 5
+  attackRange: 3
+  attackInterval: 1
+  deathEffect: {fileID: 0}
+  carTag: Car
+  arrowTag: Arrow
 --- !u!4 &1290820119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7093503277043335161, guid: 215d147e640d2f04f90d17d5e6feec83, type: 3}
@@ -5059,7 +5130,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -5340,7 +5410,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -5633,7 +5702,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -6018,7 +6086,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 1
   pathIndex: 0
-  pathManager: {fileID: 463693774}
   roadScaleX: 26.3
   triggerKey: 116
   explodeFxPrefab: {fileID: 198175801688348628, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
@@ -6371,7 +6438,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 1
   pathIndex: 1
-  pathManager: {fileID: 463693774}
   roadScaleX: 28
   triggerKey: 116
   explodeFxPrefab: {fileID: 198175801688348628, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
@@ -6706,6 +6772,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1867761588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1867761590}
+  - component: {fileID: 1867761589}
+  m_Layer: 0
+  m_Name: DragonSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1867761589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867761588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1824dbde6f3508f4daf2f91466bb8b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragonPrefab: {fileID: 0}
+  spawnPoints: []
+  minSpawnInterval: 5
+  maxSpawnInterval: 10
+  maxDragons: 3
+  initialDelay: 3
+--- !u!4 &1867761590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867761588}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 79.4, y: 134.36, z: 484.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1875857472
 GameObject:
   m_ObjectHideFlags: 0
@@ -6749,7 +6865,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -6888,7 +7003,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -7027,7 +7141,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -7123,6 +7236,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -38.012, z: 0}
+--- !u!1 &1931875693
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1931875695}
+  - component: {fileID: 1931875694}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1931875694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931875693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f44ed794a6c5d5438f0cb2102601303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1931875695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931875693}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 311.9561, y: 112.88596, z: 548.99396}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1954611287
 GameObject:
   m_ObjectHideFlags: 0
@@ -7182,7 +7339,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 1
   pathIndex: 0
-  pathManager: {fileID: 463693774}
   roadScaleX: 26.3
   triggerKey: 116
   explodeFxPrefab: {fileID: 198175801688348628, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
@@ -7481,7 +7637,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -7718,7 +7873,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -8043,7 +8197,6 @@ MonoBehaviour:
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
-  pathManager: {fileID: 0}
   roadScaleX: 0
   triggerKey: 116
   explodeFxPrefab: {fileID: 0}
@@ -8706,3 +8859,6 @@ SceneRoots:
   - {fileID: 2087042428}
   - {fileID: 464457887}
   - {fileID: 670249505}
+  - {fileID: 1931875695}
+  - {fileID: 1867761590}
+  - {fileID: 1227547598}
