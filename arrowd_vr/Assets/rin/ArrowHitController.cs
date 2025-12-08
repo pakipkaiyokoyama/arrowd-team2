@@ -2,12 +2,15 @@ using UnityEngine;
 using System.Collections;
 using Valve.VR.InteractionSystem;
 using Valve.VR;
-using UnityEngine.SceneManagement; // シーン移動に必要
+using UnityEngine.SceneManagement;
 
 public class ArrowHitController : MonoBehaviour
 {
     [Header("ーー リンク設定 ーー")]
+    [Tooltip("次に有効化する風船（リレー用）")]
     public GameObject nextBalloon;
+
+    [Tooltip("【NEW】ここを割ったら移動するシーン名（ゴール用）")]
     public string nextSceneName;
 
     [Header("自分自身（消す用）")]
@@ -21,7 +24,10 @@ public class ArrowHitController : MonoBehaviour
 
     [Header("馬車の設定")]
     public Transform carriage;
+    [Tooltip("馬車がついてくる速度")]
     public float carSpeed = 5.0f;
+    [Tooltip("馬車をどれくらい後ろに配置するか")]
+    public float carriageOffset = 5.0f;
 
     [Header("馬車の向き補正")]
     public float modelCorrectionY = 0f;
@@ -38,12 +44,14 @@ public class ArrowHitController : MonoBehaviour
     public string arrowTag = "Arrow";
     public string carTag = "Car";
 
+    // 内部フラグ
     bool triggered = false;
     public bool pathActive = true;
 
     void Start()
     {
         if (pathActive) SetPathActive(true);
+
         if (carriage == null)
         {
             GameObject carObj = GameObject.FindWithTag(carTag);
@@ -51,7 +59,6 @@ public class ArrowHitController : MonoBehaviour
         }
     }
 
-    // ★★★ PathManagerが探しているのはこの関数です！ ★★★
     public void SetPathActive(bool on)
     {
         pathActive = on;
@@ -60,7 +67,6 @@ public class ArrowHitController : MonoBehaviour
         if (col != null) col.enabled = on;
         if (on) triggered = false;
     }
-    // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 
     void Update()
     {
@@ -107,51 +113,60 @@ public class ArrowHitController : MonoBehaviour
         {
             StartCoroutine(SafeSceneLoad(nextSceneName));
         }
-
-        // チームメイトのPathManagerへの通知
-        if (isPathNode && pathManager != null)
-        {
-            // PathManager側がエラーを吐く場合があるので、
-            // 道を作らせたくない場合はここをコメントアウトしてください
-            // pathManager.OnPathNodeHit(this); 
-        }
     }
 
     IEnumerator SafeSceneLoad(string sceneName)
     {
-        Debug.Log("シーン移動開始（安全モード）...");
+        Debug.Log("シーン移動開始（非同期モード）...");
+
         SteamVR_Fade.Start(Color.black, 0.5f);
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene(sceneName);
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 
     void WarpPlayerAndMoveCar()
     {
         Vector3 basePos = (warpPoint != null) ? warpPoint.position : transform.position;
-        Quaternion baseRot = (warpPoint != null) ? warpPoint.rotation : transform.rotation;
-        Vector3 forwardDir = (warpPoint != null) ? warpPoint.forward : transform.forward;
 
+        // 馬車→ワープ先への進行方向を計算
+        Vector3 moveDir = Vector3.forward;
+        if (carriage != null)
+        {
+            moveDir = (basePos - carriage.position).normalized;
+            moveDir.y = 0;
+            if (moveDir == Vector3.zero) moveDir = Vector3.forward;
+        }
+
+        // プレイヤーの移動（進行方向の前へ）
         if (Valve.VR.InteractionSystem.Player.instance != null)
         {
-            Vector3 playerPos = basePos + (forwardDir * playerOffset);
+            Vector3 playerPos = basePos + (moveDir * playerOffset);
             Valve.VR.InteractionSystem.Player.instance.transform.position = playerPos;
 
-            float playerY = baseRot.eulerAngles.y;
+            float playerY = Quaternion.LookRotation(moveDir).eulerAngles.y;
             Valve.VR.InteractionSystem.Player.instance.transform.rotation = Quaternion.Euler(0, playerY, 0);
         }
 
+        // 馬車の移動（進行方向の後ろへ、carriageOffsetで距離調整）
         if (carriage != null)
         {
-            Vector3 carTargetPos = basePos - (forwardDir * playerOffset);
-            StartCoroutine(MoveCarriageSmoothly(carTargetPos));
+            Vector3 carTargetPos = basePos - (moveDir * carriageOffset);
+            StartCoroutine(MoveCarriageSmoothly(carTargetPos, moveDir));
         }
     }
 
-    IEnumerator MoveCarriageSmoothly(Vector3 targetPos)
+    IEnumerator MoveCarriageSmoothly(Vector3 targetPos, Vector3 finalForward)
     {
         while (Vector3.Distance(carriage.position, targetPos) > 0.1f)
         {
             Vector3 nextPos = Vector3.MoveTowards(carriage.position, targetPos, carSpeed * Time.deltaTime);
+
             Vector3 directionToTarget = (targetPos - carriage.position).normalized;
             directionToTarget.y = 0;
 
@@ -166,9 +181,11 @@ public class ArrowHitController : MonoBehaviour
             yield return null;
         }
         carriage.position = targetPos;
-        if (warpPoint != null)
+
+        // 到着後：進行方向を向く
+        if (finalForward != Vector3.zero)
         {
-            Quaternion finalRot = Quaternion.Euler(0, warpPoint.eulerAngles.y + modelCorrectionY, 0);
+            Quaternion finalRot = Quaternion.LookRotation(finalForward) * Quaternion.Euler(0, modelCorrectionY, 0);
             carriage.rotation = finalRot;
         }
     }

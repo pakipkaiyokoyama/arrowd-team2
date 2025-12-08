@@ -10265,9 +10265,10 @@ MonoBehaviour:
   nextSceneName: 
   ball: {fileID: 738069580}
   warpPoint: {fileID: 0}
-  playerOffset: -2
+  playerOffset: 0
   carriage: {fileID: 1221445228}
   carSpeed: 5
+  carriageOffset: 3
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
@@ -13522,9 +13523,10 @@ MonoBehaviour:
   nextSceneName: 
   ball: {fileID: 1002973672}
   warpPoint: {fileID: 0}
-  playerOffset: -3
+  playerOffset: 0
   carriage: {fileID: 1221445228}
   carSpeed: 5
+  carriageOffset: 3
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
@@ -19274,8 +19276,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1297827429}
   m_SourcePrefab: {fileID: 100100000, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+--- !u!1 &1297827428 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+  m_PrefabInstance: {fileID: 1297827427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1297827429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297827428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: babddd1b5fefddf428be0a4cfe206357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1299450858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22334,7 +22356,7 @@ Transform:
   m_GameObject: {fileID: 1506689652}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.3, y: 0.62, z: -0.09}
+  m_LocalPosition: {x: -10.3, y: 0.62, z: -0.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22356,9 +22378,10 @@ MonoBehaviour:
   nextSceneName: 
   ball: {fileID: 1506689652}
   warpPoint: {fileID: 0}
-  playerOffset: -3
+  playerOffset: 0
   carriage: {fileID: 1221445228}
   carSpeed: 5
+  carriageOffset: 3
   modelCorrectionY: 0
   isPathNode: 0
   pathIndex: -1
