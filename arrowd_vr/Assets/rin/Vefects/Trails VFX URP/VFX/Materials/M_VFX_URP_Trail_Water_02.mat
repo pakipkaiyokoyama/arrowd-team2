@@ -8,11 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_VFX_URP_Trail_Water_02
-  m_Shader: {fileID: 4800000, guid: f94f00b9ec6b04346a617d373aa6281c, type: 3}
+  m_Shader: {fileID: 4800000, guid: f6a1776d52b856744ba06793c78b26fa, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _USE_GRADIENT_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -23,6 +24,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AO:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -59,6 +64,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: aec738f429fa4ab4a8b574c7c804886c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Gradient:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _InnerRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -71,11 +84,27 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetallicSmooth:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Ramp:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -100,6 +129,7 @@ Material:
     - _AlphaAffectsOpacity: 1
     - _AlphaCutoff: 0.5
     - _AlphaIsDissolve: 1
+    - _BumpAmt: 10
     - _BumpScale: 1
     - _CameraOffset: 0
     - _ColorSmoothstep: 0
@@ -108,11 +138,13 @@ Material:
     - _Cutoff: 0.5
     - _DepthFade: 0
     - _DetailNormalMapScale: 1
+    - _DisplaceAmount: 1.5
     - _DistortionAmount: 0.2
     - _DistortionMaskIntensity: 1
     - _Distortion_Amount: 0
     - _Dst: 10
     - _DstBlend: 0
+    - _EdgeSize: 0.2
     - _EmissiveIntensity: 3
     - _ErosionMultiply: 1
     - _ErosionPower: 1
@@ -122,6 +154,7 @@ Material:
     - _Erosion_Intensity1: -0.5
     - _Erosion_Multiply: 1
     - _Erosion_Power: 2
+    - _Fresnel: 3
     - _Global_Scale: 1
     - _Global_Scale1: 1
     - _Global_Scale2: 1
@@ -138,6 +171,7 @@ Material:
     - _Mask_Power: 1
     - _Metallic: 0
     - _Mode: 0
+    - _NoiseStrength: 0.4
     - _OcclusionStrength: 1
     - _Opacity_Boost: 1
     - _OverallSpeed: 1
@@ -150,10 +184,14 @@ Material:
     - _Src: 5
     - _SrcBlend: 1
     - _UVSec: 0
+    - _Use_Gradient: 1
     - _WindSpeed: -5
     - _ZTest: 2
     - _ZWrite: 0
     - __dirty: 0
+    - _cutoff: 0
+    - _marchDistance: 3
+    - _numSteps: 4
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color01: {r: 0.10196079, g: 0.40000004, b: 1, a: 0}
@@ -169,13 +207,17 @@ Material:
     - _DistortionUVScale: {r: 0.1, g: 0.3, b: 0, a: 0}
     - _Distortion_Scale: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _Distortion_Speed: {r: 0, g: 0, b: 0, a: 0}
+    - _EdgeColor1: {r: 1, g: 1, b: 1, a: 1}
+    - _Emission: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ErosionPanSpeed: {r: -0.337, g: 0.07, b: 0, a: 0}
     - _ErosionUVScale: {r: 0.1, g: 0.3, b: 0, a: 0}
     - _Erosion_Scale: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _Erosion_Speed: {r: 0.25, g: 0, b: 0, a: 0}
+    - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
     - _MaskPanSpeed: {r: -2.2, g: 0, b: 0, a: 0}
     - _MaskUVScale: {r: 0.25, g: 1, b: 0, a: 0}
     - _Mask_Scale: {r: 0.5, g: 1, b: 0, a: 0}
     - _Mask_Speed: {r: 0.5, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
