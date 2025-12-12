@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
+
 
 public class CarHealth : MonoBehaviour
 {
@@ -16,9 +18,33 @@ public class CarHealth : MonoBehaviour
 
     private bool isDead = false;
 
+    // ★追加：一定時間でHPを減らす設定
+    public float damageInterval = 120f; // 2分（120秒）
+    public int autoDamageAmount = 5;    // 5ダメージ
+    private bool isAutoDamageActive = true;
+
     void Start()
     {
         currentHP = maxHP;
+
+        // ★追加：自動ダメージ開始
+        StartCoroutine(AutoDamageRoutine());
+    }
+
+    // ★追加：2分ごとにHPを減らす処理
+    private IEnumerator AutoDamageRoutine()
+    {
+        while (!isDead && isAutoDamageActive)
+        {
+            yield return new WaitForSeconds(damageInterval);
+
+            if (!isDead)
+            {
+                TakeDamage(autoDamageAmount);
+                if (showDebugLog)
+                    Debug.Log($"時間経過でダメージ: {autoDamageAmount} (現在HP: {currentHP})");
+            }
+        }
     }
 
     public void TakeDamage(int amount)
@@ -44,7 +70,6 @@ public class CarHealth : MonoBehaviour
         }
     }
 
-    // HPを回復する（アイテムなどで使う場合）
     public void Heal(int amount)
     {
         if (isDead) return;
@@ -56,15 +81,19 @@ public class CarHealth : MonoBehaviour
             Debug.Log($"馬車が回復！ HP: {currentHP}/{maxHP}");
     }
 
-    // HP割合を取得（UIで使う場合）
     public float GetHPRatio()
     {
         return (float)currentHP / maxHP;
     }
 
-    // 死亡判定
     public bool IsDead()
     {
         return isDead;
+    }
+
+    // ★必要なら：ゴール到達で自動ダメージを止める関数
+    public void StopAutoDamage()
+    {
+        isAutoDamageActive = false;
     }
 }
