@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 3866923782500440147}
   - component: {fileID: 4119676749626293969}
   m_Layer: 0
-  m_Name: VFX_Trail_Fire
+  m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
