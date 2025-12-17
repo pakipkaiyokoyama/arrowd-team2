@@ -68,6 +68,15 @@ public class CarHealth : MonoBehaviour
 
             onDeath?.Invoke();
         }
+        if (currentHP <= 30)
+        {
+            var bgm = FindFirstObjectByType<BGMManager>();
+            if (bgm != null)
+            {
+                bgm.PlayLowHPBGM();
+            }
+        }
+
     }
 
     public void Heal(int amount)
