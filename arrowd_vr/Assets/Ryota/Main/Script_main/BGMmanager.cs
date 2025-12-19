@@ -1,62 +1,36 @@
 using UnityEngine;
 
-public class BGMManager : MonoBehaviour
+public class SceneBGMManager : MonoBehaviour
 {
-    [Header("通常BGM")]
-    public AudioClip normalBGM;
-    public float normalLoopStart = 0f;
-    public float normalLoopEnd = 10f;
+    [Header("再生するAudioSource")]
+    protected AudioSource audioSource;
 
-    [Header("HP30以下BGM")]
-    public AudioClip lowHPBGM;
-    public float lowLoopStart = 0f;
-    public float lowLoopEnd = 10f;
+    [Header("最初に自動再生するか")]
+    public bool playOnStart = true;
 
-    private AudioSource audioSource;
-    private bool isLowHP = false;
-
-    void Start()
+    protected virtual void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        PlayNormalBGM();
-    }
 
-    void Update()
-    {
-        if (!audioSource.isPlaying) return;
-
-        // 現在の状態によってループ処理を切替
-        if (!isLowHP)
+        if (playOnStart && audioSource != null)
         {
-            if (audioSource.time >= normalLoopEnd)
-                audioSource.time = normalLoopStart;
-        }
-        else
-        {
-            if (audioSource.time >= lowLoopEnd)
-                audioSource.time = lowLoopStart;
+            audioSource.Play();
         }
     }
 
-    public void PlayNormalBGM()
+    public void ChangeBGM(AudioClip clip, float volume = 1f)
     {
-        if (normalBGM == null) return;
+        if (audioSource == null) return;
 
-        isLowHP = false;
-        audioSource.clip = normalBGM;
-        audioSource.time = normalLoopStart;
+        audioSource.Stop();
+        audioSource.clip = clip;
+        audioSource.volume = volume;
         audioSource.Play();
     }
 
-    public void PlayLowHPBGM()
+    public void StopBGM()
     {
-        if (lowHPBGM == null) return;
-
-        if (isLowHP) return; // 連続呼び出し防止
-
-        isLowHP = true;
-        audioSource.clip = lowHPBGM;
-        audioSource.time = lowLoopStart;
-        audioSource.Play();
+        if (audioSource != null)
+            audioSource.Stop();
     }
 }

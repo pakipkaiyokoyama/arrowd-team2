@@ -2,14 +2,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 
-
 public class CarHealth : MonoBehaviour
 {
     [Header("HP設定")]
     public int maxHP = 100;
     public int currentHP;
 
-    [Header("イベント（Inspectorで設定可能）")]
+    [Header("イベント")]
     public UnityEvent onDamaged;
     public UnityEvent onDeath;
 
@@ -18,32 +17,31 @@ public class CarHealth : MonoBehaviour
 
     private bool isDead = false;
 
-    // ★追加：一定時間でHPを減らす設定
-    public float damageInterval = 120f; // 2分（120秒）
-    public int autoDamageAmount = 5;    // 5ダメージ
+    // 自動ダメージ
+    public float damageInterval = 120f;
+    public int autoDamageAmount = 5;
     private bool isAutoDamageActive = true;
+
+    private BGMManager bgm;
 
     void Start()
     {
         currentHP = maxHP;
 
-        // ★追加：自動ダメージ開始
+        // BGMマネージャー取得
+        bgm = FindFirstObjectByType<BGMManager>();
+
+        // 自動ダメージ開始
         StartCoroutine(AutoDamageRoutine());
     }
 
-    // ★追加：2分ごとにHPを減らす処理
     private IEnumerator AutoDamageRoutine()
     {
         while (!isDead && isAutoDamageActive)
         {
             yield return new WaitForSeconds(damageInterval);
 
-            if (!isDead)
-            {
-                TakeDamage(autoDamageAmount);
-                if (showDebugLog)
-                    Debug.Log($"時間経過でダメージ: {autoDamageAmount} (現在HP: {currentHP})");
-            }
+            TakeDamage(autoDamageAmount);
         }
     }
 
@@ -53,30 +51,29 @@ public class CarHealth : MonoBehaviour
 
         currentHP -= amount;
 
-        if (showDebugLog)
-            Debug.Log($"馬車がダメージ！ 残りHP: {currentHP}/{maxHP}");
-
-        onDamaged?.Invoke();
-
         if (currentHP <= 0)
         {
             currentHP = 0;
             isDead = true;
 
+            onDeath?.Invoke();
+
             if (showDebugLog)
                 Debug.Log("馬車が破壊された！");
 
-            onDeath?.Invoke();
-        }
-        if (currentHP <= 30)
-        {
-            var bgm = FindFirstObjectByType<BGMManager>();
-            if (bgm != null)
-            {
-                bgm.PlayLowHPBGM();
-            }
+            return;
         }
 
+        onDamaged?.Invoke();
+
+        if (showDebugLog)
+            Debug.Log($"ダメージ！HP {currentHP}/{maxHP}");
+
+        // -------------------------
+        // ★ 低HP BGM 切替
+        // -------------------------
+        if (bgm != null)
+            bgm.UpdateHP(currentHP);
     }
 
     public void Heal(int amount)
@@ -87,20 +84,12 @@ public class CarHealth : MonoBehaviour
         if (currentHP > maxHP) currentHP = maxHP;
 
         if (showDebugLog)
-            Debug.Log($"馬車が回復！ HP: {currentHP}/{maxHP}");
+            Debug.Log($"回復 HP: {currentHP}/{maxHP}");
+
+        if (bgm != null)
+            bgm.UpdateHP(currentHP);
     }
 
-    public float GetHPRatio()
-    {
-        return (float)currentHP / maxHP;
-    }
-
-    public bool IsDead()
-    {
-        return isDead;
-    }
-
-    // ★必要なら：ゴール到達で自動ダメージを止める関数
     public void StopAutoDamage()
     {
         isAutoDamageActive = false;

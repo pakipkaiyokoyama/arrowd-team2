@@ -1,248 +1,82 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
-/// <summary>
-/// シーンごとのBGMを管理するスクリプト
-/// シーンに1つ配置するだけでBGMが自動再生されます
-/// </summary>
-public class SceneBGMManager : MonoBehaviour
+public class BGMManager : MonoBehaviour
 {
-    [Header("ーー BGM設定 ーー")]
-    [Tooltip("このシーンで再生するBGM")]
-    public AudioClip bgmClip;
+    [Header("通常BGM設定")]
+    public AudioClip normalBGM;
+    public float normalLoopStart = 0f;
+    public float normalLoopEnd = 10f;
 
-    [Tooltip("BGMの音量")]
-    [Range(0f, 1f)]
-    public float bgmVolume = 0.5f;
+    [Header("HP低下BGM設定")]
+    public AudioClip lowHPBGM;
+    public float lowLoopStart = 0f;
+    public float lowLoopEnd = 10f;
 
-    [Tooltip("ループ再生する")]
-    public bool loop = true;
+    [Header("HP閾値")]
+    public int lowHPThreshold = 30;
 
-    [Header("ーー フェード設定 ーー")]
-    [Tooltip("フェードイン時間（秒）")]
-    public float fadeInTime = 1.0f;
-
-    [Tooltip("フェードアウト時間（秒）")]
-    public float fadeOutTime = 1.0f;
-
-    [Tooltip("シーン開始時にフェードインする")]
-    public bool fadeInOnStart = true;
-
-    [Header("ーー 詳細設定 ーー")]
-    [Tooltip("シーン開始時に自動再生")]
-    public bool playOnStart = true;
-
-    [Tooltip("開始遅延時間（秒）")]
-    public float startDelay = 0f;
-
-    [Tooltip("他のBGMを自動的に停止する")]
-    public bool stopOtherBGM = true;
-
-    // 内部変数
+    private bool isLowHP = false;
     private AudioSource audioSource;
-    private static SceneBGMManager currentBGM;
-
-    void Awake()
-    {
-        // AudioSourceを取得または追加
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
-
-        // AudioSourceの設定
-        audioSource.clip = bgmClip;
-        audioSource.volume = fadeInOnStart ? 0f : bgmVolume;
-        audioSource.loop = loop;
-        audioSource.playOnAwake = false;
-
-        // 他のBGMを停止
-        if (stopOtherBGM && currentBGM != null && currentBGM != this)
-        {
-            currentBGM.StopBGM(fadeOutTime);
-        }
-
-        currentBGM = this;
-    }
 
     void Start()
     {
-        if (playOnStart && bgmClip != null)
-        {
-            if (startDelay > 0)
-            {
-                StartCoroutine(DelayedPlay());
-            }
-            else
-            {
-                PlayBGM();
-            }
-        }
+        audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.loop = false;
+
+        // 通常BGM開始
+        SwitchToNormalBGM();
     }
 
-    IEnumerator DelayedPlay()
+    void Update()
     {
-        yield return new WaitForSeconds(startDelay);
-        PlayBGM();
-    }
+        if (!audioSource.isPlaying) return;
 
-    /// <summary>
-    /// BGMを再生
-    /// </summary>
-    public void PlayBGM()
-    {
-        if (bgmClip == null) return;
-
-        audioSource.Play();
-
-        if (fadeInOnStart)
+        if (!isLowHP)
         {
-            StartCoroutine(FadeIn());
-        }
-    }
-
-    /// <summary>
-    /// BGMを停止
-    /// </summary>
-    public void StopBGM(float fadeTime = 0f)
-    {
-        if (fadeTime > 0)
-        {
-            StartCoroutine(FadeOutAndStop(fadeTime));
+            if (audioSource.time >= normalLoopEnd)
+                audioSource.time = normalLoopStart;
         }
         else
         {
-            audioSource.Stop();
+            if (audioSource.time >= lowLoopEnd)
+                audioSource.time = lowLoopStart;
         }
     }
 
-    /// <summary>
-    /// BGMを一時停止
-    /// </summary>
-    public void PauseBGM()
+    // HP受け取り
+    public void UpdateHP(int currentHP)
     {
-        audioSource.Pause();
-    }
-
-    /// <summary>
-    /// BGMを再開
-    /// </summary>
-    public void ResumeBGM()
-    {
-        audioSource.UnPause();
-    }
-
-    /// <summary>
-    /// BGMの音量を設定
-    /// </summary>
-    public void SetVolume(float volume)
-    {
-        bgmVolume = Mathf.Clamp01(volume);
-        audioSource.volume = bgmVolume;
-    }
-
-    /// <summary>
-    /// BGMを変更
-    /// </summary>
-    public void ChangeBGM(AudioClip newClip, float crossFadeTime = 1.0f)
-    {
-        if (newClip == null) return;
-        StartCoroutine(CrossFade(newClip, crossFadeTime));
-    }
-
-    // ========== フェード処理 ==========
-
-    IEnumerator FadeIn()
-    {
-        float elapsed = 0f;
-
-        while (elapsed < fadeInTime)
+        if (!isLowHP && currentHP <= lowHPThreshold)
         {
-            elapsed += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(0f, bgmVolume, elapsed / fadeInTime);
-            yield return null;
+            SwitchToLowHPBGM();
         }
-
-        audioSource.volume = bgmVolume;
+        else if (isLowHP && currentHP > lowHPThreshold)
+        {
+            SwitchToNormalBGM();
+        }
     }
 
-    IEnumerator FadeOutAndStop(float fadeTime)
+    public void SwitchToNormalBGM()
     {
-        float startVolume = audioSource.volume;
-        float elapsed = 0f;
-
-        while (elapsed < fadeTime)
-        {
-            elapsed += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(startVolume, 0f, elapsed / fadeTime);
-            yield return null;
-        }
-
-        audioSource.volume = 0f;
-        audioSource.Stop();
-    }
-
-    IEnumerator CrossFade(AudioClip newClip, float crossFadeTime)
-    {
-        // 現在のBGMをフェードアウト
-        float startVolume = audioSource.volume;
-        float elapsed = 0f;
-
-        while (elapsed < crossFadeTime / 2f)
-        {
-            elapsed += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(startVolume, 0f, elapsed / (crossFadeTime / 2f));
-            yield return null;
-        }
-
-        // BGMを切り替え
-        audioSource.Stop();
-        audioSource.clip = newClip;
-        bgmClip = newClip;
+        if (normalBGM == null) return;
+        isLowHP = false;
+        audioSource.clip = normalBGM;
+        audioSource.time = normalLoopStart;
         audioSource.Play();
-
-        // 新しいBGMをフェードイン
-        elapsed = 0f;
-        while (elapsed < crossFadeTime / 2f)
-        {
-            elapsed += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(0f, bgmVolume, elapsed / (crossFadeTime / 2f));
-            yield return null;
-        }
-
-        audioSource.volume = bgmVolume;
     }
 
-    // ========== 外部から呼び出せる静的メソッド ==========
-
-    /// <summary>
-    /// 現在のBGMマネージャーを取得
-    /// </summary>
-    public static SceneBGMManager GetCurrent()
+    public void SwitchToLowHPBGM()
     {
-        return currentBGM;
-    }
-
-    /// <summary>
-    /// 現在のBGMを停止（静的メソッド）
-    /// </summary>
-    public static void StopCurrentBGM(float fadeTime = 1.0f)
-    {
-        if (currentBGM != null)
-        {
-            currentBGM.StopBGM(fadeTime);
-        }
-    }
-
-    /// <summary>
-    /// 現在のBGMの音量を設定（静的メソッド）
-    /// </summary>
-    public static void SetCurrentVolume(float volume)
-    {
-        if (currentBGM != null)
-        {
-            currentBGM.SetVolume(volume);
-        }
+        if (lowHPBGM == null) return;
+        if (isLowHP) return;
+        isLowHP = true;
+        audioSource.clip = lowHPBGM;
+        audioSource.time = lowLoopStart;
+        audioSource.Play();
     }
 }
