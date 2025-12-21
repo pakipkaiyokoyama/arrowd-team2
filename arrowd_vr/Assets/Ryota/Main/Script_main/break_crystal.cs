@@ -15,7 +15,7 @@ public class CrystalDestroyOnHit : MonoBehaviour
     public string arrowTag = "Arrow";
 
     [Header("Car‚Ìƒ^ƒOİ’è")]
-    public string carTag = "Player";
+    public string carTag = "Car";
 
     [Header("Œø‰Ê‰¹‚Ì‰¹—Ê(0.0 ` 1.0)")]
     [Range(0f, 1f)] public float soundVolume = 1f;

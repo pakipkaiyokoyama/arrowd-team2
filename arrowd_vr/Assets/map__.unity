@@ -658,7 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -1753,7 +1753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -2419,7 +2419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -3318,7 +3318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -3683,7 +3683,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 455526100}
-  - component: {fileID: 455526101}
   m_Layer: 0
   m_Name: minus
   m_TagString: Untagged
@@ -3720,24 +3719,6 @@ Transform:
   - {fileID: 727767361}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &455526101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455526099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5496cbad36427684787cf16d0ff1c20a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakEffectPrefab: {fileID: 6982263153641847612, guid: 36a3ddd9e9258474aa29a08939eeda45, type: 3}
-  breakSound: {fileID: 8300000, guid: 0bab6f7ad11fc9a4ca28148cad3c0f6f, type: 3}
-  healAmount: 3
-  arrowTag: Arrow
-  carTag: Player
-  soundVolume: 1
 --- !u!1 &463693773
 GameObject:
   m_ObjectHideFlags: 0
@@ -4023,7 +4004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -4610,7 +4591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 0bab6f7ad11fc9a4ca28148cad3c0f6f, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -4988,7 +4969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -5263,7 +5244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 0bab6f7ad11fc9a4ca28148cad3c0f6f, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -6125,7 +6106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 0bab6f7ad11fc9a4ca28148cad3c0f6f, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -6554,7 +6535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -7126,10 +7107,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 0bab6f7ad11fc9a4ca28148cad3c0f6f, type: 3}
   healAmount: 3
   arrowTag: Arrow
-  carTag: Player
+  carTag: Car
   soundVolume: 1
 --- !u!114 &806466259
 MonoBehaviour:
@@ -8282,7 +8263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -9417,7 +9398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -9836,7 +9817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 0bab6f7ad11fc9a4ca28148cad3c0f6f, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -10803,7 +10784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 0bab6f7ad11fc9a4ca28148cad3c0f6f, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -11322,7 +11303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -11733,7 +11714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -12588,6 +12569,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1773459871}
   - component: {fileID: 1773459872}
+  - component: {fileID: 1773459873}
   m_Layer: 0
   m_Name: CrystalPivot (1)
   m_TagString: Untagged
@@ -12626,6 +12608,24 @@ MonoBehaviour:
   floatAmplitude: 0.02
   floatFrequency: 1
   rotateSpeed: 20
+--- !u!114 &1773459873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773459870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5496cbad36427684787cf16d0ff1c20a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakEffectPrefab: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
+  healAmount: 3
+  arrowTag: Arrow
+  carTag: Player
+  soundVolume: 1
 --- !u!1 &1784494645
 GameObject:
   m_ObjectHideFlags: 0
@@ -14929,7 +14929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 0bab6f7ad11fc9a4ca28148cad3c0f6f, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
@@ -15499,7 +15499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffectPrefab: {fileID: 0}
-  breakSound: {fileID: 0}
+  breakSound: {fileID: 8300000, guid: 81ddf9fa3b45cd64799df97a08484e63, type: 3}
   healAmount: 3
   arrowTag: Arrow
   carTag: Player
